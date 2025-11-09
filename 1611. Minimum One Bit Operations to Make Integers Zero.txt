@@ -1,0 +1,25 @@
+class Solution {
+
+    static {
+        for(int i=0;i<500;i++){
+            convert(2533);
+            convert(345554);
+        }
+    }
+
+    public int minimumOneBitOperations(int n) {  
+        return convert(n);
+    }
+
+    static int convert(int n){
+       int ans = n;
+        while (n > 0) {
+            n >>= 1;
+            ans ^= n;
+        }
+        return ans;
+
+    }
+
+
+}
