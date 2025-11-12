@@ -1,0 +1,60 @@
+class Solution {
+    public int minOperations(int[] nums) {
+        int size=nums.length,l=0;
+        if(allHcf(0,size,nums)>1){return -1;}
+
+        int count=countOne(nums); 
+        if(count>0){return size-count;}
+
+        for(int i=0;i<size-1;i++){
+            int k=hcf(nums[i],nums[i+1]);
+            System.out.print(k+" ");
+            if(k==1){return size;}
+        }
+
+        
+       int k=Integer.MAX_VALUE; 
+       for(int i=0;i<size;i++){
+        for(int j=i;j<size;j++){
+            int ch=allHcf(i,j+1,nums);
+            if(ch==1){
+                if(k> j-i+1){k=j-i+1;}
+                break;
+            }
+        }
+       }
+
+
+
+        return (k-1) + (size-1);
+
+    }
+
+        public static int allHcf(int st,int en,int[] arr) {
+        int result = arr[st];
+
+        for (int i = st; i < en; i++) {
+            result = hcf(result, arr[i]);
+            if (result == 1) {
+                return 1;
+            }
+        }
+        return result;
+    }
+
+    static int countOne(int[] nums){
+        int count=0;
+        for(int i:nums){if(i==1){count++;}}
+        return count;
+    }
+
+
+    static int hcf(int a, int b) {
+        while (b != 0) {
+            int temp = b;
+            b = a % b;
+            a = temp;
+        }
+        return a;
+    }
+}
