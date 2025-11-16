@@ -1,0 +1,71 @@
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        
+
+       if(!rowCheck(board)){return false;}
+       if(!columnCheck(board)){return false;}
+       if(!boxCheck(board)){return false;}
+
+       return true;
+
+
+    }
+
+    static boolean boxCheck(char[][] board){
+        List<List<Integer>> starter = List.of(
+            List.of(0,0),
+            List.of(0,3),
+            List.of(0,6),
+            List.of(3,0),
+            List.of(3,3),
+            List.of(3,6),
+            List.of(6,0),
+            List.of(6,3),
+            List.of(6,6)
+        );
+        for(int l=0;l<9;l++){
+            int i=starter.get(l).get(0);
+            int j=starter.get(l).get(1);
+           
+            Set<Character> box = new HashSet<>(9);
+            for(int m=i;m<i+3;m++){
+                for(int n=j;n<j+3;n++){
+                    char k=board[m][n];
+                    if(k=='.'){continue;}
+                    else if(box.contains(k)){return false;}
+                    else{box.add(k);}
+                }
+            }
+
+        }
+        return true;
+    }
+
+
+
+    static boolean rowCheck(char[][] board){
+         for(int i=0;i<9;i++){
+            Set<Character> row = new HashSet<>(9);
+            for(int j=0;j<9;j++){
+                char k=board[i][j];
+                if(k=='.'){continue;}
+                else if(row.contains(k)){return false;}
+                else{row.add(k);}
+            }
+        }
+        return true;
+    }
+
+    static boolean columnCheck(char[][] board){
+         for(int i=0;i<9;i++){
+            Set<Character> row = new HashSet<>(9);
+            for(int j=0;j<9;j++){
+                char k=board[j][i];
+                if(k=='.'){continue;}
+                else if(row.contains(k)){return false;}
+                else{row.add(k);}
+            }
+        }
+        return true;
+    }
+}
