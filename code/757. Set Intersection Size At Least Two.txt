@@ -1,0 +1,40 @@
+class Solution {
+    public int intersectionSizeTwo(int[][] intervals) {
+
+        Arrays.sort(intervals, (x, y) -> {
+            if (x[1] == y[1]) return y[0] - x[0]; 
+            return x[1] - y[1];
+        });
+
+        
+        int a = -1; 
+        int b = -1; 
+        
+        int count = 0;
+
+        for (int[] interval : intervals) {
+            int start = interval[0];
+            int end = interval[1];
+
+            
+            if (a >= start && b <= end) {
+                continue;
+            }
+
+            
+            if (b >= start && b <= end) {
+                count++;
+                a = b;
+                b = end;
+            } 
+            else {
+            
+                count += 2;
+                a = end - 1;
+                b = end;
+            }
+        }
+
+        return count;
+    }
+}
