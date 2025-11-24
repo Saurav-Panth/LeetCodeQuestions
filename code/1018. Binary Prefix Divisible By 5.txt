@@ -1,0 +1,41 @@
+class Solution {
+    public List<Boolean> prefixesDivBy5(int[] nums) {
+        List<Boolean> list = new ArrayList<>();
+        // String send="";
+
+        // for(int i=0;i<nums.length;i++){
+        //     send=send+nums[i];
+        //     // System.out.println(send);
+        //     list.add(convert(send));
+            
+        // }
+
+      int ans=0;
+        for(int i=0;i<nums.length;i++){
+            ans=((ans*2)+nums[i])%5;
+            list.add(ans==0);
+        }
+
+        return list;
+
+    }
+    // static boolean convert(String s){
+    //     double ans=0,p=0;
+    //     for(int i=s.length()-1;i>=0;i--){
+    //         int c=s.charAt(i)-'0';
+    //         ans=ans+(c*Math.pow(2,p));
+    //         p++;
+    //     }
+    //     System.out.println(ans);
+    //     String k= ""+ans;
+    //     int fin= Integer.parseInt(""+k.charAt(k.length()-1));
+    //     System.out.print(fin);
+
+    //     return ans%5==0;
+
+
+        
+
+    
+    // }
+}
