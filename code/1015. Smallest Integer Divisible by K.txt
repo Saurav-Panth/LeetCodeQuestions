@@ -1,0 +1,46 @@
+class Solution {
+
+    static {
+        for(int i=0;i<1001;i++){
+            smallestRepunitDivByK(23);
+            smallestRepunitDivByK(21);
+        }
+    }
+
+
+    static public int smallestRepunitDivByK(int k) {
+        
+        if(k%2==0 || k%5==0){return -1;}
+        if(k==1)return 1;
+
+        int  count=1,ans=1;
+
+        // for(int i=0;i<k-1;i++){one=(one*10)+1;}
+    
+    
+       // DecimalFormat df = new DecimalFormat("#.#");
+
+        
+        // System.out.println(one);
+        // System.out.println(number);
+
+
+        // while(true){ 
+        //     System.out.println(one);
+        //     if(one%k==0){return df.format(one).length();}
+        //     one=one*10+1;
+
+        // }
+
+        while(true){
+            ans=(ans%k)*10+1;
+            count++;
+            if(ans%k==0){
+                return count;
+            }
+        }
+
+        // return 0;
+   
+    }
+}
