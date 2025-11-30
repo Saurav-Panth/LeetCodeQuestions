@@ -1,0 +1,72 @@
+class Solution {
+   
+    // public List<List<String>> groupAnagrams(String[] strs) {
+        
+    //     List<List<String>> list=new ArrayList<>();
+
+    //     for(int i=0;i<strs.length;i++){
+    //         String temp1 = strs[i];
+    //         if(!temp1.equals("#//#")){
+    //             List<String> sub=new ArrayList<>();
+    //             sub.add(temp1);
+    //             for(int j=i+1;j<strs.length;j++){
+    //                 String temp2 = strs[j];
+    //                 if(!temp2.equals("#//#") && check(temp1,temp2)){
+    //                     sub.add(temp2);
+    //                     strs[j]="#//#";
+    //                 }
+    //             }
+    //             list.add(sub);
+    //         }
+    //     }
+
+    //     return list;
+      
+
+    // }
+
+    // static boolean check(String a,String b){
+    //     if(a.length()!=b.length()){return false;}
+
+    //     int[] arr = new int[128];
+    //     for(int i=0;i<a.length();i++){
+    //         arr[a.charAt(i)]++;
+    //         arr[b.charAt(i)]--;
+    //     }
+
+    //     for(int i=0;i<arr.length;i++){
+    //         if(arr[i]!=0){return false;}
+    //     }
+
+    //     return true;
+
+    // }
+
+
+    public List<List<String>> groupAnagrams(String[] strs){
+
+        Map<String,List<String>> ans = new HashMap<>();
+        
+        for(String s:strs){
+
+            char[] c = s.toCharArray();
+            Arrays.sort(c);
+            String temp=new String(c);
+            if(ans.containsKey(temp)){
+                ans.get(temp).add(s);
+            }
+            else{
+                List<String> sub = new ArrayList<>();
+                sub.add(s);
+                ans.put(temp,sub);
+            }
+
+        }
+
+        return new ArrayList(ans.values());
+
+
+    }
+
+   
+}
