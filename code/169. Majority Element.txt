@@ -1,0 +1,23 @@
+class Solution {
+    public int majorityElement(int[] nums) {
+        
+        Map<Integer,Integer> map = new LinkedHashMap<>();
+        int m=nums.length/2;
+        System.out.println(m);
+
+        for(int i:nums){
+            if(map.containsKey(i)){
+                map.put(i,map.get(i)+1);
+                if(map.get(i)>m){
+                return i;}
+            }
+            else{
+                map.put(i,1);
+                if(map.get(i)>m){
+                return i;}
+            }
+        }
+        return 0;
+
+    }
+}
