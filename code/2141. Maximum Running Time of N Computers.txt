@@ -1,0 +1,39 @@
+class Solution {
+    public long maxRunTime(int n, int[] batteries) {
+        
+        long max =0,min=Integer.MAX_VALUE;
+        long count=0;
+
+        for(int a:batteries){
+            if(min>a){min=a;}
+            max=max+a;
+        }
+        max=max/n;
+
+        while(min<=max){
+            long mid=min+(max-min)/2;
+
+            if(check(batteries,n,mid)){
+                count=mid;
+                min=mid+1;
+            }
+            else{
+                max=mid-1;
+            }
+        }
+
+        return count;
+
+
+    }
+
+    static boolean check(int[] batteies,long n,long mid){
+        long target=mid*n;
+        long sum=0;
+        for(int i:batteies){
+            sum=sum+Math.min(i,mid);
+            if(sum>=target){return true;}
+        }
+        return false;
+    }
+}
