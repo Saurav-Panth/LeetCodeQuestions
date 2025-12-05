@@ -1,0 +1,14 @@
+class Solution {
+    public int countPartitions(int[] nums) {
+        int sum=0,count=0,subSum=0;
+        for(int a:nums){sum+=a;}
+
+        for(int i=0;i<nums.length-1;i++){
+            subSum+=nums[i];
+            if(((sum-subSum)-subSum)%2==0)count++;
+        }
+
+        return count;
+
+    }
+}
