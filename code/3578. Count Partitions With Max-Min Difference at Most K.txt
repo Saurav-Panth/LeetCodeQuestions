@@ -1,0 +1,32 @@
+class Solution {
+    public int countPartitions(int[] nums, int k) {
+        int n = nums.length, mod = 1_000_000_007;
+        long[] dp = new long[n + 1], pre = new long[n + 1];
+        dp[0] = pre[0] = 1;
+        
+        Deque<Integer> mn = new ArrayDeque<>();
+        Deque<Integer> mx = new ArrayDeque<>();
+        
+        int l = 0;
+        for (int i = 0; i < n; i++) {
+            while (!mn.isEmpty() && nums[mn.peekLast()] > nums[i]) mn.pollLast();
+            while (!mx.isEmpty() && nums[mx.peekLast()] < nums[i]) mx.pollLast();
+            mn.add(i);
+            mx.add(i);
+            
+            while (nums[mx.peek()] - nums[mn.peek()] > k) {
+                if (mn.peek() == l) mn.poll();
+                if (mx.peek() == l) mx.poll();
+                l++;
+            }
+            
+
+            
+            long sum = pre[i] - (l == 0 ? 0 : pre[l - 1]);
+            dp[i + 1] = (sum % mod + mod) % mod;
+            pre[i + 1] = (pre[i] + dp[i + 1]) % mod;
+        }
+        
+        return (int) dp[n];
+    }
+}
