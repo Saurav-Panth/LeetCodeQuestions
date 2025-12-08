@@ -1,0 +1,38 @@
+import java.util.*;
+
+class Solution {
+    public boolean isValid(String s) {
+        
+        Deque<Character> de = new ArrayDeque<>();
+
+        for(char check :s.toCharArray()){
+            if(check=='(' || check=='{' || check=='['){
+                de.push(check);
+            }
+            else{
+                if(de.isEmpty()){return false;}
+                else{
+                    if(check==')'){
+                        if(de.peek()=='('){de.pop();}
+                        else{return false;}
+                    }
+                    else if(check=='}'){
+                        if(de.peek()=='{'){de.pop();}
+                        else{return false;}
+                    }
+                    else if(check==']'){
+                        if(de.peek()=='['){de.pop();}
+                        else{return false;}
+                    }
+                }
+            }
+        }
+
+     
+
+        
+        return de.isEmpty();
+
+
+    }
+}
