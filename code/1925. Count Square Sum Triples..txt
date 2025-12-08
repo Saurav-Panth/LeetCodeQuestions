@@ -1,0 +1,21 @@
+class Solution {
+    public int countTriples(int n) {
+        
+        double a=3.000;
+        int b =(int)a,count=0;
+
+        for(int i=1;i<n-1;i++){
+            for(int j=i+1;j<n;j++){
+                int total = (int)Math.pow(i,2)+(int)Math.pow(j,2);
+                System.out.println(total);
+                if(Math.sqrt(total)-(int)Math.sqrt(total)==0.0 && (int)Math.sqrt(total)<=n){
+                    count=count+2;
+                }
+            }
+        }
+
+
+        return count;        
+
+    }
+}
