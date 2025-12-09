@@ -1,0 +1,45 @@
+class Solution {
+    public int specialTriplets(int[] nums) {
+        int n = nums.length;
+        long mod = 1000000007;
+        long total = 0;
+
+        Map<Integer,Integer> right = new HashMap<>();
+        for (int x : nums) {
+            if (right.containsKey(x)) {
+                right.put(x, right.get(x) + 1);
+            } else {
+                right.put(x, 1);
+            }
+        }
+
+        Map<Integer,Integer> left = new HashMap<>();
+
+        for (int j = 0; j < n; j++) {
+            int mid = nums[j];
+            int target = mid * 2;
+
+            right.put(mid, right.get(mid) - 1);
+
+            long leftCount = 0;
+            if (left.containsKey(target)) {
+                leftCount = left.get(target);
+            }
+
+            long rightCount = 0;
+            if (right.containsKey(target)) {
+                rightCount = right.get(target);
+            }
+
+            total = (total + (leftCount * rightCount) % mod) % mod;
+
+            if (left.containsKey(mid)) {
+                left.put(mid, left.get(mid) + 1);
+            } else {
+                left.put(mid, 1);
+            }
+        }
+
+        return (int) total;
+    }
+}
