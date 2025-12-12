@@ -1,0 +1,52 @@
+import java.util.*;
+
+class Solution {
+    public int[] countMentions(int numberOfUsers, List<List<String>> events) {
+
+        events.sort((a, b) -> {
+            int t1 = Integer.parseInt(a.get(1));
+            int t2 = Integer.parseInt(b.get(1));
+            if (t1 != t2) return t1 - t2;
+            if (a.get(0).equals(b.get(0))) return 0;
+            return a.get(0).equals("OFFLINE") ? -1 : 1;
+        });
+
+        int[] mentions = new int[numberOfUsers];
+        boolean[] online = new boolean[numberOfUsers];
+        Arrays.fill(online, true);
+
+        PriorityQueue<int[]> backOnline =
+                new PriorityQueue<>(Comparator.comparingInt(x -> x[0]));
+
+        int i = 0;
+
+        while (i < events.size()) {
+            int time = Integer.parseInt(events.get(i).get(1));
+
+            while (!backOnline.isEmpty() && backOnline.peek()[0] <= time) {
+                online[backOnline.poll()[1]] = true;
+            }
+
+            if (events.get(i).get(0).equals("OFFLINE")) {
+                int id = Integer.parseInt(events.get(i).get(2));
+                online[id] = false;
+                backOnline.add(new int[]{time + 60, id});
+            } else {
+                String text = events.get(i).get(2);
+                if (text.equals("ALL")) {
+                    for (int u = 0; u < numberOfUsers; u++) mentions[u]++;
+                } else if (text.equals("HERE")) {
+                    for (int u = 0; u < numberOfUsers; u++) {
+                        if (online[u]) mentions[u]++;
+                    }
+                } else {
+                    for (String p : text.split(" ")) {
+                        mentions[Integer.parseInt(p.substring(2))]++;
+                    }
+                }
+            }
+            i++;
+        }
+        return mentions;
+    }
+}
