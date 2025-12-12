@@ -1,0 +1,100 @@
+class Solution {
+    
+
+    public int countCoveredBuildings(int n, int[][] buildings){
+
+        int size = buildings.length,c=0;
+        System.out.println(size);
+        Map<Integer,int[]> xaise=new LinkedHashMap<>();
+        Map<Integer,int[]> yaise=new LinkedHashMap<>();
+       int a=0,b=0;
+
+        for(int i=0;i<size;i++){
+    
+            int x=buildings[i][0];
+            int y=buildings[i][1];
+           
+            if(xaise.containsKey(x)){
+                a=Math.min(y,xaise.get(x)[0]);
+                b=Math.max(y,xaise.get(x)[1]);
+                 xaise.put(x,new int[]{a,b});
+
+                
+            }
+            else{
+                xaise.put(x,new int[]{y,y});
+            }
+
+            if(yaise.containsKey(y)){
+                a=Math.min(x,yaise.get(y)[0]);
+                b=Math.max(x,yaise.get(y)[1]);
+                 yaise.put(y,new int[]{a,b});
+
+                
+            }
+            else{
+                yaise.put(y,new int[]{x,x});
+            }
+
+
+        }
+
+
+  
+        for(int i=0;i<size;i++){
+
+            int x=buildings[i][0];
+            int y=buildings[i][1];
+
+            if(x>yaise.get(y)[0] && x<yaise.get(y)[1] && y>xaise.get(x)[0] && y<xaise.get(x)[1])c++;
+
+
+
+        }        
+        return c;        
+
+
+    }
+
+    // static void run(Map<Integer, int[]> data) {
+    // for (Map.Entry<Integer, int[]> e : data.entrySet()) {
+    //     int key = e.getKey();
+    //     int first = e.getValue()[0];
+    //     int second = e.getValue()[1];
+
+    //     System.out.println(key + " -> " + first + ", " + second);
+    // }
+    // System.out.println();
+    // }
+
+
+}
+
+
+
+// public int countCoveredBuildings(int n, int[][] buildings) {
+    //     Map<Integer, TreeSet<Integer>> rows = new HashMap<>();
+    //     Map<Integer, TreeSet<Integer>> cols = new HashMap<>();
+
+    //     for (int[] b : buildings) {
+    //         rows.computeIfAbsent(b[0], k -> new TreeSet<>()).add(b[1]);
+    //         cols.computeIfAbsent(b[1], k -> new TreeSet<>()).add(b[0]);
+    //     }
+
+    //     int c = 0;
+    //     for (int[] b : buildings) {
+    //         int x = b[0], y = b[1];
+
+    //         TreeSet<Integer> r = rows.get(x);
+    //         TreeSet<Integer> col = cols.get(y);
+
+    //         Integer l = r.lower(y);
+    //         Integer rgt = r.higher(y);
+    //         Integer up = col.lower(x);
+    //         Integer down = col.higher(x);
+
+    //         if (l != null && rgt != null && up != null && down != null) c++;
+    //     }
+
+    //     return c;
+    // }
