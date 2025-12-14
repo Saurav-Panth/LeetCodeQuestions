@@ -1,0 +1,59 @@
+class Solution {
+    public List<String> validateCoupons(String[] code, String[] businessLine, boolean[] isActive) {
+        
+        List<String> ans = new ArrayList<>();
+        int n=businessLine.length;
+        String[] ele = new String[n];
+        String[] gro = new String[n];
+        String[] pha = new String[n];
+        String[] res = new String[n];
+
+        for(int i=0;i<n;i++){
+            if(code[i].matches("[a-zA-Z0-9_]+")){
+                if(isActive[i]){
+                        if(businessLine[i].equals("electronics"))ele[i]=code[i];
+                        else if(businessLine[i].equals("restaurant"))res[i]=code[i];
+                        else if(businessLine[i].equals("pharmacy"))pha[i]=code[i];
+                        else if(businessLine[i].equals("grocery"))gro[i]=code[i];
+
+                }  
+            }
+        }
+
+        Arrays.sort(ele, Comparator.nullsLast(String::compareTo));
+        Arrays.sort(gro, Comparator.nullsLast(String::compareTo));
+        Arrays.sort(pha, Comparator.nullsLast(String::compareTo));
+        Arrays.sort(res, Comparator.nullsLast(String::compareTo));
+
+        for(String a : ele){
+            if(a==null)break;
+
+            ans.add(a);
+        }
+
+        for(String a : gro){
+            if(a==null)break;
+
+            ans.add(a);
+        }
+
+        for(String a : pha){
+            if(a==null)break;
+
+            ans.add(a);
+        }
+
+        for(String a : res){
+            if(a==null)break;
+
+            ans.add(a);
+        }
+
+        return ans;
+
+    }
+}
+
+
+
+
