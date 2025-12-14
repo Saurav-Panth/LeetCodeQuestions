@@ -1,0 +1,36 @@
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        
+        List<List<Integer>> ans = new ArrayList<>();
+        ans.add(new ArrayList<>(List.of(1)));
+        
+
+        for(int i=0;i<numRows-1;i++){
+            ArrayList<Integer> store = send(i,ans);
+            List<Integer> sub = new ArrayList<>();
+
+            sub.add(1);
+            for(int j=0;j<store.size()-1;j++){
+                int s= store.get(j)+store.get(j+1);
+                sub.add(s);   
+            }
+            sub.add(1);
+
+            ans.add(sub);
+
+        }
+        
+
+        return ans;
+
+    }
+
+    static ArrayList<Integer> send(int index,List<List<Integer>> ans){
+        ArrayList<Integer> store = new ArrayList<>();
+        for(Integer a:ans.get(index)){
+            store.add(a);
+        }
+        return store;
+    }
+
+}
