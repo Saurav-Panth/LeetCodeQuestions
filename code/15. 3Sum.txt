@@ -1,0 +1,22 @@
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        
+        Set<List<Integer>> store = new LinkedHashSet<>();
+
+        for(int i=0;i<nums.length;i++){
+            Set<Integer> temp = new LinkedHashSet<>();
+            for(int j=i+1;j<nums.length;j++){
+                // List<Integer>> three = new ArrayList<>();
+                if(temp.contains(-(nums[i]+nums[j]))){
+                 List<Integer> three = new ArrayList<>(List.of(nums[i],nums[j],-(nums[i]+nums[j])));
+                 Collections.sort(three);
+                 store.add(three);
+                }
+                temp.add(nums[j]);
+            }
+        }
+
+        return new ArrayList<>(store);
+
+    }
+}
