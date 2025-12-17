@@ -1,0 +1,29 @@
+class Solution {
+    public long maximumProfit(int[] prices, int k) {
+        int n = prices.length;
+        long[] free = new long[k + 1];
+        long[] longHold = new long[k + 1];
+        long[] shortHold = new long[k + 1];
+
+        for (int t = 0; t <= k; t++) {
+            longHold[t] = Long.MIN_VALUE / 2;
+            shortHold[t] = Long.MIN_VALUE / 2;
+        }
+
+        for (int price : prices) {
+            for (int t = k; t >= 1; t--) {
+                free[t] = Math.max(
+                        free[t],
+                        Math.max(longHold[t] + price, shortHold[t] - price)
+                );
+
+                longHold[t] = Math.max(longHold[t], free[t - 1] - price);
+                shortHold[t] = Math.max(shortHold[t], free[t - 1] + price);
+            }
+        }
+
+        long ans = 0;
+        for (int t = 0; t <= k; t++) ans = Math.max(ans, free[t]);
+        return ans;
+    }
+}
