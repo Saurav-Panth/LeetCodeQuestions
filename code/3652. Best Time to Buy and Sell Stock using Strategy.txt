@@ -1,0 +1,47 @@
+class Solution {
+    public long maxProfit(int[] prices, int[] strategy, int k) {
+
+        int n = prices.length;
+        int half = k / 2;
+
+        long baseProfit = 0;
+        for(int i=0;i<n;i++){
+            baseProfit += (long)strategy[i] * prices[i];
+        }
+
+        long[] holdGain = new long[n];
+        long[] sellGain = new long[n];
+
+        for(int i=0;i<n;i++){
+            holdGain[i] = -(long)strategy[i] * prices[i];
+            sellGain[i] = (long)(1 - strategy[i]) * prices[i];
+        }
+
+        long leftSum = 0;
+        long rightSum = 0;
+
+        for(int i=0;i<half;i++){
+            leftSum += holdGain[i];
+        }
+        for(int i=half;i<k;i++){
+            rightSum += sellGain[i];
+        }
+
+        long maxGain = 0;   
+
+        maxGain = Math.max(maxGain, leftSum + rightSum);
+
+        for(int start=1; start + k <= n; start++){
+
+            leftSum -= holdGain[start - 1];
+            leftSum += holdGain[start + half - 1];
+
+            rightSum -= sellGain[start + half - 1];
+            rightSum += sellGain[start + k - 1];
+
+            maxGain = Math.max(maxGain, leftSum + rightSum);
+        }
+
+        return baseProfit + maxGain;
+    }
+}
