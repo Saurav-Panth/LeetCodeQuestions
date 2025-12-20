@@ -1,0 +1,61 @@
+/**
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) {
+ *         val = x;
+ *         next = null;
+ *     }
+ * }
+ */
+public class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+        
+        if(headB==null)return null;
+        ListNode tempA = headA;
+        ListNode tempB = headB;
+        int sizeA=1,sizeB=1;
+
+
+        while(tempA.next!=null){
+            sizeA++;
+            tempA=tempA.next;
+        }
+
+        while(tempB.next!=null){
+            sizeB++;
+            tempB=tempB.next;
+        }
+
+        if(tempA!=tempB)return null;
+
+        tempA = headA;
+        tempB = headB;
+
+
+        int k = sizeA>sizeB?sizeA-sizeB:sizeB-sizeA;
+        if(sizeA>sizeB){
+            while(k!=0){
+                tempA=tempA.next;
+                k--;
+            }
+        }
+        if(sizeA<sizeB){
+            while(k!=0){
+                tempB=tempB.next;
+                k--;
+            }
+        }
+
+
+        while(tempA!=null && tempB!=null){
+            // System.out.println("A value ---> "+tempA.val+"  B value ---> "+tempB.val);
+            if(tempA==tempB)return tempA;
+            tempA=tempA.next;
+            tempB=tempB.next;
+        }
+
+        return null;
+    }
+}
