@@ -1,0 +1,11 @@
+SELECT product_name , year , price 
+FROM (
+    SELECT
+        p.product_name ,
+        s.year ,
+        s.price ,
+        ROW_NUMBER() OVER (PARTITION BY p.product_id)
+    FROM sales s
+    JOIN product p
+        ON p.product_id = s.product_id
+) ne;
