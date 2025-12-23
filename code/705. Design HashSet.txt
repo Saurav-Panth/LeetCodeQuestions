@@ -1,0 +1,85 @@
+class Node{
+    int data;
+    Node next;
+    public Node(int data){
+        this.data=data;
+        next=null;
+    }
+}
+
+
+class MyHashSet {
+
+    Node head;
+
+
+    public MyHashSet() {
+        
+    }
+    
+    public void add(int key) {
+        if(head==null){
+            head=new Node(key);
+        }
+        else{
+            Node temp=head;
+            while(temp.next!=null){
+                temp=temp.next;
+            }
+            temp.next=new Node(key);
+        }
+    }
+
+    public void display(){
+         Node temp=head;
+         while(temp!=null){
+                System.out.print(temp.data+" ");
+                temp=temp.next;
+        }
+        System.out.println();
+
+    }
+    
+    public void remove(int key){
+
+        while(head != null && head.data == key){
+            head = head.next;
+        }
+
+        Node curr = head;
+        Node pre = null;
+
+        while(curr != null){
+            if(curr.data == key){
+                pre.next = curr.next;
+                curr = curr.next;
+            } else {
+                pre = curr;
+                curr = curr.next;
+            }
+        }
+    }
+
+    
+    public boolean contains(int key) {
+        if(head==null){
+            return false;
+        }
+        else{
+            Node temp=head;
+            while(temp!=null){
+                if(temp.data==key)return true;
+                temp=temp.next;
+            }
+        }
+        return false;
+    }
+}
+
+/**
+ * Your MyHashSet object will be instantiated and called as such:
+ * MyHashSet obj = new MyHashSet();
+ * obj.add(key);
+ * obj.remove(key);
+ * boolean param_3 = obj.contains(key);
+ */
