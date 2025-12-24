@@ -1,0 +1,45 @@
+class Solution {
+    public int maxTwoEvents(int[][] events) {
+        Arrays.sort(events, (a, b) -> a[0] - b[0]);
+
+        int n = events.length;
+        int[] maxFromRight = new int[n];
+        maxFromRight[n - 1] = events[n - 1][2];
+
+        for (int i = n - 2; i >= 0; i--) {
+            maxFromRight[i] = Math.max(maxFromRight[i + 1], events[i][2]);
+        }
+
+        int ans = 0;
+
+        for (int i = 0; i < n; i++) {
+            int currValue = events[i][2];
+            int nextIndex = findNextEvent(events, events[i][1] + 1);
+
+            if (nextIndex < n) {
+                currValue += maxFromRight[nextIndex];
+            }
+
+            ans = Math.max(ans, currValue);
+        }
+
+        return ans;
+    }
+
+    private int findNextEvent(int[][] events, int targetStart) {
+        int low = 0, high = events.length - 1;
+        int res = events.length;
+
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (events[mid][0] >= targetStart) {
+                res = mid;
+                high = mid - 1;
+            } else {
+                low = mid + 1;
+            }
+        }
+
+        return res;
+    }
+}
