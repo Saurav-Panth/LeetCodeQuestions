@@ -1,0 +1,27 @@
+class Solution {
+    public long maximumHappinessSum(int[] happiness, int k) {
+        
+        Arrays.sort(happiness);
+
+        long ans =0,lowVal=0,minVal=0;
+        int i=happiness.length-1;
+        while(k>0){
+            lowVal=happiness[i]-minVal;
+            // System.out.println("LOW VALUES  "+lowVal);
+            if(lowVal<=0)break;
+            if(lowVal==1){
+                 ans=ans+lowVal;
+                 break;
+            }
+            else{
+                ans=ans+lowVal;
+            }
+            i--;
+            minVal++;
+            k--;
+
+        }
+
+        return ans;
+    }
+}
