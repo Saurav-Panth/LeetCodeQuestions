@@ -1,0 +1,41 @@
+class Solution {
+    public int numMagicSquaresInside(int[][] grid) {
+        int n = grid.length;
+        int m = grid[0].length;
+        if(n < 3 || m < 3){return 0;}
+
+        int ans = 0;
+
+        for(int i = 0; i <= n - 3; i++){
+            for(int j = 0; j <= m - 3; j++){
+                if(check(grid, i, j)){ans++;}
+            }
+        }
+
+        return ans;
+    }
+
+    static boolean check(int[][] grid, int r, int c){
+        boolean[] used = new boolean[10];
+
+        if(grid[r+1][c+1] != 5){return false;}
+
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                int val = grid[r+i][c+j];
+                if(val < 1 || val > 9 || used[val]){return false;}
+                used[val] = true;
+            }
+        }
+
+        int s = grid[r][c] + grid[r][c+1] + grid[r][c+2];
+
+        return grid[r+1][c] + grid[r+1][c+1] + grid[r+1][c+2] == s &&
+               grid[r+2][c] + grid[r+2][c+1] + grid[r+2][c+2] == s &&
+               grid[r][c] + grid[r+1][c] + grid[r+2][c] == s &&
+               grid[r][c+1] + grid[r+1][c+1] + grid[r+2][c+1] == s &&
+               grid[r][c+2] + grid[r+1][c+2] + grid[r+2][c+2] == s &&
+               grid[r][c] + grid[r+1][c+1] + grid[r+2][c+2] == s &&
+               grid[r][c+2] + grid[r+1][c+1] + grid[r+2][c] == s;
+    }
+}
