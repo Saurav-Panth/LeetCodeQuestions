@@ -24,3 +24,60 @@ class Solution {
 
     }
 }
+
+
+
+class Solution {
+    // public int[] findEvenNumbers(int[] digits) {
+        
+    //     Set<Integer> set = new TreeSet<>();
+
+    //     for(int i=0;i<digits.length;i++){
+    //         for(int j=0;j<digits.length;j++){
+    //             for(int k=0;k<digits.length;k++){
+    //                 if(k!=i && k!=j && j!=i ){
+    //                     int temp=digits[i]*100+digits[j]*10+digits[k];
+    //                     if(temp>99 && temp%2==0) set.add(temp);
+    //                 }
+    //             }
+    //         }
+    //     }
+        
+    //     int[] ans = new int[set.size()];
+    //     int i=0;
+    //     for(int a:set){
+    //         ans[i]=a;
+    //         i++;
+    //     }    
+    //     return ans;
+
+    // }
+
+    public int[] findEvenNumbers(int[] digits){
+        int[] check = new int[10];
+
+        for(int a:digits)check[a]++;
+        List<Integer> list = new ArrayList<>();
+        for(int i=100;i<1000;i+=2){
+            int a=i/100;
+            int b=(i/10)%10;
+            int c=i%10;
+
+            check[a]--;
+            check[b]--;
+            check[c]--;
+
+            if(check[a]>=0 && check[b]>=0 && check[c]>=0){
+                list.add(i);
+            }
+            check[a]++;
+            check[b]++;
+            check[c]++;
+
+        }
+        
+        
+
+        return list.stream().mapToInt(i -> i).toArray();
+    }
+}
