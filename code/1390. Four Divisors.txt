@@ -1,0 +1,26 @@
+class Solution {
+    public int sumFourDivisors(int[] nums) {
+        
+        int ans=0;
+        for(int a:nums){
+            ans+=check(a);
+        }
+        return ans;
+
+    }
+
+    static int check(int n){
+        int count=2,sum=1+n;
+        for(int i=2 ; i<n/2+1;i++){
+            if(n%i==0){
+                count++;
+                sum+=i;
+            } 
+            if(count>4)return 0; 
+            
+        }
+        // System.out.println("N  "+n+"  SUM  " +sum+"  COUNT "+count);
+       return count==4?sum:0;
+
+    }
+}
